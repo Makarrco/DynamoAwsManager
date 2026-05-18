@@ -1,0 +1,132 @@
+﻿<Window x:Class="DynamoAwsManager.CreateTableDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create New Table"
+        Height="420" Width="440"
+        MinHeight="420"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#0F172A">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize"   Value="13"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background"             Value="#1E293B"/>
+            <Setter Property="Foreground"             Value="White"/>
+            <Setter Property="CaretBrush"             Value="White"/>
+            <Setter Property="BorderBrush"            Value="#475569"/>
+            <Setter Property="BorderThickness"        Value="1"/>
+            <Setter Property="Padding"                Value="8,6"/>
+            <Setter Property="FontSize"               Value="13"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background"      Value="#1E293B"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="BorderBrush"     Value="#475569"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding"         Value="8,6"/>
+            <Setter Property="FontSize"        Value="13"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding"         Value="12,8"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="FontWeight"      Value="SemiBold"/>
+            <Setter Property="FontSize"        Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.85"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <!-- Root: header | fields | buttons -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- header -->
+            <RowDefinition Height="*"/>
+            <!-- scrollable fields -->
+            <RowDefinition Height="Auto"/>
+            <!-- buttons pinned at bottom -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1E293B" Padding="20,14">
+            <StackPanel>
+                <TextBlock Text="Create New Table"
+                           FontSize="16" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Billing mode is set to PAY_PER_REQUEST automatically."
+                           Foreground="#94A3B8" FontSize="11" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Scrollable fields -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20,16,20,8">
+
+                <TextBlock Text="Table Name" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <TextBox x:Name="TableNameBox" Height="34"/>
+
+                <!-- Partition key -->
+                <TextBlock Text="Partition Key  (Hash Key)" FontWeight="SemiBold" Margin="0,14,0,4"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="HashKeyBox"   Grid.Column="0" Height="34" Margin="0,0,8,0"/>
+                    <ComboBox x:Name="HashTypeBox" Grid.Column="1" Height="34" SelectedIndex="0">
+                        <ComboBoxItem Content="String"/>
+                        <ComboBoxItem Content="Number"/>
+                    </ComboBox>
+                </Grid>
+
+                <TextBlock Text="Sort Key  (Range Key, optional)" FontWeight="SemiBold" Margin="0,14,0,4"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="120"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="RangeKeyBox" Grid.Column="0" Height="34" Margin="0,0,8,0"/>
+                    <ComboBox x:Name="RangeTypeBox" Grid.Column="1" Height="34" SelectedIndex="0">
+                        <ComboBoxItem Content="String"/>
+                        <ComboBoxItem Content="Number"/>
+                    </ComboBox>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" Background="#0F172A" Padding="20,12">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancel" 
+                        Width="90"  
+                        Height="24"
+                        Background="#475569"
+                        Margin="0,0,10,0" 
+                        Click="Cancel_Click"/>
+                <Button Content="Create" 
+                        Width="110" 
+                        Height="24"
+                        Background="#10B981"
+                        Click="Create_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
